@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState, useEffect } from 'react';
 import Header from './components/Header';
+import Modal from './components/Modal';
 
 function App() {
   const [pageProyecto, setPageProyecto] = useState(false);
@@ -9,9 +10,12 @@ function App() {
   );
   const [error, setError] = useState('');
 
-  const [personas, setPersonas] = useState(
-    JSON.parse(localStorage.getItem("personas")) || []
-  );
+  const [personas, setPersonas] = useState(() => {
+    const personasLocalStorage = localStorage.getItem("personas");
+    return personasLocalStorage ? JSON.parse(personasLocalStorage) : [];
+  });
+
+  const [ modal, setModal ] = useState(false)
 
   const handleComenzar = () => {
     if (nombre.trim() === '') {
@@ -56,6 +60,8 @@ function App() {
           personas={personas}
           setPersonas={setPersonas}
           setPageProyecto={setPageProyecto}
+          modal={modal}
+          setModal={setModal}
         />
       ) : (
       <div className="container__home">
@@ -64,6 +70,10 @@ function App() {
         <button type='button' onClick={handleComenzar}>Comenzar</button>
         {error && <p style={{ color: 'red', paddingTop: '10px' }}>{error}</p>}
       </div>
+      )}
+
+      { modal && (
+        <Modal />
       )}
     </>
   )

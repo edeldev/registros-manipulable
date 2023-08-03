@@ -1,5 +1,5 @@
 
-function Filtro({filtroNombre, setFiltroNombre, filtroCiudad, setFiltroCiudad}) {
+function Filtro({filtroNombre, setFiltroNombre, filtroCiudad, setFiltroCiudad, numRegistrados}) {
 
     const vaciar = () => {
         setFiltroNombre('')
@@ -27,7 +27,7 @@ function Filtro({filtroNombre, setFiltroNombre, filtroCiudad, setFiltroCiudad}) 
             />
         </div>
 
-        <button type="button" onClick={vaciar}>Mostrar Todos</button>
+        <button type="button" onClick={vaciar} disabled={numRegistrados === 0}>Mostrar Todos</button>
     </div>
   )
 }

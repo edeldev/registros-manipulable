@@ -1,3 +1,4 @@
+import generarId from '../data/id-unico'
 
 function InfoFormulario({
     personas, 
@@ -35,15 +36,10 @@ function InfoFormulario({
     setAnio,
     setHabilidad,
     setLinguistica,
-    setSocial
+    setSocial,
+    modal,
+    setModal
 }) {
-
-      const generarId = () => {
-        const random = Math.random().toString(36).substr(2);
-        const fecha = Date.now().toString(36);
-    
-        return  random + fecha
-      }
 
       const handleSubmit = (event) => {
         event.preventDefault();
@@ -91,10 +87,19 @@ function InfoFormulario({
         setLinguistica("")
         setSocial("")
 
-        const section = document.querySelector(".container__datos-persona");
+        setTimeout(() => {
+            const section = document.querySelector(".container__datos-persona");
             if (section) {
             section.scrollIntoView({ behavior: "smooth" });
-        }
+            }
+        }, 1400);
+
+        setModal(true)
+
+        setTimeout(() => {
+            setModal(false)
+        }, 1300);
+
       }
 
   return (

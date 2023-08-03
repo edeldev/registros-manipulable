@@ -1,6 +1,8 @@
 
 function Datos({
-    persona
+    persona,
+    personas,
+    setPersonas
 }) {
 
     const {
@@ -23,6 +25,17 @@ function Datos({
         social,
         id
     } = persona;   
+
+    const borrarRegistro = () => {
+        const resultado = confirm(`¿Deseas eliminar este registro?, ${id}`);
+        if(resultado) {
+            const personasActualizadas = personas.filter((persona) => persona.id !== id);
+            setPersonas(personasActualizadas);
+            const personasPorDefectoActualizadas = personasActualizadas.filter((persona) => persona.esPorDefecto);
+            localStorage.setItem('personasPorDefecto', JSON.stringify(personasPorDefectoActualizadas));
+        }
+  
+    }
 
   return (
     <div className='container__datos-persona'>
@@ -125,7 +138,9 @@ function Datos({
                     <td>{social}</td>
                 </tr>
             </tbody>
-        </table>                 
+        </table>
+
+        <button type="button" className="delete__registro" onClick={borrarRegistro}>Eliminar</button>                 
     </div>
   )
 }

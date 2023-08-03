@@ -171,6 +171,9 @@ tbody tr td {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: springgreen;
+  padding: 10px;
+  border-radius: 10px;
 }
 
 .form__filtrado label {
@@ -188,18 +191,90 @@ tbody tr td {
   border: none;
   border-radius: 10px;
   padding: 1px 6px;
+  background-color: #fffffffb;
+  color: #000000;
+  font-weight: bold;
+}
+
+.container__delete {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.container__delete p {
+  margin: 0;
+}
+
+.container__delete button {
   background-color: #ff0909fb;
+  border: none;
+  border-radius: 10px;
+  padding: 1px 6px;
   color: #FFFFFF;
   font-weight: bold;
+}
+
+.delete__registro {
+  margin-top: 15px;
+  border: none;
+  width: 100%;
+  border-radius: 10px;
+  background-color: red;
+  color: #FFFFFF;
+  transition: all .3s ease;
+}
+
+.delete__registro:hover {
+  background-color: rgba(255, 0, 0, 0.747);
+}
+
+/* MODAL */
+.open {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.container__modal {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.795);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  backdrop-filter: blur(5px);
+  display: grid;
+  place-items: center;
+}
+
+.container__modal p {
+  margin: 0;
+  color:rgb(255, 255, 255);
+  font-size: 28px;
+  font-weight: bold;
+  animation: scale .5s ease;
+}
+
+@keyframes scale {
+  from {
+    transform:scale(.4,.4);
+  }
+  to {
+    transform:scale(1,1);
+  }
 }
 
 @media screen and (max-width: 768px) {
   .container__main {
     width: 90%;
   }
+  
+}
 
+@media screen and (max-width: 930px) {
   .form__filtrado {
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
   }
 }

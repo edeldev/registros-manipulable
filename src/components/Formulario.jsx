@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import InfoFormulario from './InfoFormulario';
 import Datos from './Datos';
 import Filtro from './Filtro';
+import {agregarPersonasPorDefecto} from '../data/registros-defecto'
 
-function Formulario({personas, setPersonas}) {
+function Formulario({personas, setPersonas, modal, setModal}) {
       
 
     // Informacion Personal
@@ -37,14 +38,42 @@ function Formulario({personas, setPersonas}) {
     const [ filtroCiudad, setFiltroCiudad ] = useState('')
     const [ personasFiltradas, setPersonasFiltradas ] = useState([])
 
+    const [ numRegistrados, setNumRegistrados ] = useState(0)
+
+    useEffect(() => {
+        // Solo inicializamos las personas por defecto si el array está vacío
+        if (personas.length === 0) {
+          const datosPorDefecto = agregarPersonasPorDefecto();
+          setPersonas(datosPorDefecto); // Establece los datos de las personas por defecto
+        }
+      }, [personas, setPersonas]);
+
     useEffect(() => {
         if(filtroNombre && filtroCiudad) {
             const personasFiltradas = personas.
             filter( persona => persona.nombre === filtroNombre && persona.ciudad === filtroCiudad  )
 
             setPersonasFiltradas(personasFiltradas)
+
+            setNumRegistrados(personasFiltradas.length);
+        } else {
+            setNumRegistrados(personas.length);
         }
     }, [ filtroNombre, filtroCiudad ])
+
+    useEffect(() => {
+        // Update the number of registered individuals whenever the personas prop changes
+        setNumRegistrados(personas.length);
+      }, [personas]);
+
+      const borrarTodo = () => {
+        const resultado = confirm("¿Deseas eliminar todos los registros?");
+        if (resultado) {
+          const personasNoPorDefecto = personas.filter(persona => !persona.esPorDefecto);
+          setPersonas(personasNoPorDefecto);
+          localStorage.setItem('personasPorDefecto', JSON.stringify(personasNoPorDefecto));
+        }
+      };
 
 
   return (
@@ -88,6 +117,8 @@ function Formulario({personas, setPersonas}) {
                     setLinguistica={setLinguistica}
                     social={social}
                     setSocial={setSocial}
+                    modal={modal}
+                    setModal={setModal}
                 />
             </div>
 
@@ -97,13 +128,20 @@ function Formulario({personas, setPersonas}) {
                     setFiltroNombre={setFiltroNombre}
                     filtroCiudad={filtroCiudad}
                     setFiltroCiudad={setFiltroCiudad}
+                    numRegistrados={numRegistrados}
                 />
+                <div className="container__delete">
+                    <p>{numRegistrados} {numRegistrados === 1 ? 'Registrado' : 'Registrados'}</p>
+                    <button type='button' onClick={borrarTodo} disabled={numRegistrados === 0}>Eliminar todo</button>
+                </div>
 
                 { filtroNombre && filtroCiudad ? (
                     personasFiltradas.map( persona => (
                         <Datos 
                             key={persona.id}
                             persona={persona}
+                            personas={personas}
+                            setPersonas={setPersonas}
                         />
                         ))
                 ) : (
@@ -112,6 +150,8 @@ function Formulario({personas, setPersonas}) {
                         <Datos 
                             key={persona.id}
                             persona={persona}
+                            personas={personas}
+                            setPersonas={setPersonas}
                         />
                     ))
                 )}

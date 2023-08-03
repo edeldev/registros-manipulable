@@ -16,12 +16,6 @@ function InfoFormulario({
     nivel,
     institucion,
     anio,
-    empresa,
-    puesto,
-    responsabilidad,
-    sueldo,
-    comision,
-    deduccion,
     habilidad,
     linguistica,
     social,
@@ -39,12 +33,6 @@ function InfoFormulario({
     setNivel,
     setInstitucion,
     setAnio,
-    setEmpresa,
-    setPuesto,
-    setResponsabilidad,
-    setSueldo,
-    setComision,
-    setDeduccion,
     setHabilidad,
     setLinguistica,
     setSocial
@@ -75,12 +63,6 @@ function InfoFormulario({
             nivel,
             institucion,
             anio,
-            empresa,
-            puesto,
-            responsabilidad,
-            sueldo,
-            comision,
-            deduccion,
             habilidad,
             linguistica,
             social,
@@ -105,15 +87,14 @@ function InfoFormulario({
         setNivel("")
         setInstitucion("")
         setAnio("")
-        setEmpresa("")
-        setPuesto("")
-        setResponsabilidad("")
-        setSueldo("")
-        setComision("")
-        setDeduccion("")
         setHabilidad("")
         setLinguistica("")
         setSocial("")
+
+        const section = document.querySelector(".container__datos-persona");
+            if (section) {
+            section.scrollIntoView({ behavior: "smooth" });
+        }
       }
 
   return (

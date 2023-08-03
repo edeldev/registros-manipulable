@@ -28,16 +28,6 @@ function Formulario({personas, setPersonas}) {
     const [ institucion, setInstitucion ] = useState('');
     const [ anio, setAnio ] = useState('');
 
-    // Informacion Laboral
-    const [ empresa, setEmpresa ] = useState('');
-    const [ puesto, setPuesto ] = useState('');
-    const [ responsabilidad, setResponsabilidad ] = useState('');
-
-    // Salarios
-    const [ sueldo, setSueldo ] = useState('');
-    const [ comision, setComision ] = useState('');
-    const [ deduccion, setDeduccion ] = useState('');
-
     // Habilidades
     const [ habilidad, setHabilidad ] = useState('');
     const [ linguistica, setLinguistica ] = useState('');
@@ -92,18 +82,6 @@ function Formulario({personas, setPersonas}) {
                     setInstitucion={setInstitucion}
                     anio={anio}
                     setAnio={setAnio}
-                    empresa={empresa}
-                    setEmpresa={setEmpresa}
-                    puesto={puesto}
-                    setPuesto={setPuesto}
-                    responsabilidad={responsabilidad}
-                    setResponsabilidad={setResponsabilidad}
-                    sueldo={sueldo}
-                    setSueldo={setSueldo}
-                    comision={comision}
-                    setComision={setComision}
-                    deduccion={deduccion}
-                    setDeduccion={setDeduccion}
                     habilidad={habilidad}
                     setHabilidad={setHabilidad}
                     linguistica={linguistica}
@@ -113,7 +91,7 @@ function Formulario({personas, setPersonas}) {
                 />
             </div>
 
-            <div className="col-md-7 scroll__datos">
+            <div className="col-md-7 scroll__datos" id="alta">
                 <Filtro 
                     filtroNombre={filtroNombre}
                     setFiltroNombre={setFiltroNombre}

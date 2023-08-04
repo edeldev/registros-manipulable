@@ -72,8 +72,6 @@ function Formulario({personas, setPersonas, modal, setModal}) {
         }
       };
       
-      
-
 
   return (
     <div className="container__main">

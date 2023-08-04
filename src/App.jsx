@@ -10,10 +10,8 @@ function App() {
   );
   const [error, setError] = useState('');
 
-  const [personas, setPersonas] = useState(() => {
-    const personasLocalStorage = localStorage.getItem("personas");
-    return personasLocalStorage ? JSON.parse(personasLocalStorage) : [];
-  });
+  const [personas, setPersonas] = useState(
+    JSON.parse(localStorage.getItem('personas')) || [] )
 
   const [ modal, setModal ] = useState(false)
 

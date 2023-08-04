@@ -151,6 +151,7 @@ table thead tr th {
 tbody tr td {
   padding: 10px 0;
   border: 1px solid black;
+  word-break: break-all;
 }
 
 .inicio {
@@ -174,6 +175,7 @@ tbody tr td {
   background: springgreen;
   padding: 10px;
   border-radius: 10px;
+  text-align: center;
 }
 
 .form__filtrado label {
@@ -237,7 +239,7 @@ tbody tr td {
 }
 
 .container__modal {
-  position: absolute;
+  position: fixed;
   background-color: rgba(0, 0, 0, 0.795);
   top: 0;
   left: 0;

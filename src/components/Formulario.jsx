@@ -41,12 +41,9 @@ function Formulario({personas, setPersonas, modal, setModal}) {
     const [ numRegistrados, setNumRegistrados ] = useState(0)
 
     useEffect(() => {
-        // Solo inicializamos las personas por defecto si el array está vacío
-        if (personas.length === 0) {
-          const datosPorDefecto = agregarPersonasPorDefecto();
-          setPersonas(datosPorDefecto); // Establece los datos de las personas por defecto
-        }
-      }, [personas, setPersonas]);
+        const datosPorDefecto = agregarPersonasPorDefecto(personas);
+        setPersonas(datosPorDefecto);
+      }, []);
 
     useEffect(() => {
         if(filtroNombre && filtroCiudad) {
@@ -67,13 +64,15 @@ function Formulario({personas, setPersonas, modal, setModal}) {
       }, [personas]);
 
       const borrarTodo = () => {
-        const resultado = confirm("¿Deseas eliminar todos los registros?");
+        const resultado = window.confirm("¿Deseas eliminar todos los registros?");
         if (resultado) {
-          const personasNoPorDefecto = personas.filter(persona => !persona.esPorDefecto);
-          setPersonas(personasNoPorDefecto);
-          localStorage.setItem('personasPorDefecto', JSON.stringify(personasNoPorDefecto));
+            const deleteTodo = personas.filter((persona) => persona.esPorDefecto);
+            localStorage.setItem('personasPorDefecto', JSON.stringify(deleteTodo));
+            setPersonas([])
         }
       };
+      
+      
 
 
   return (

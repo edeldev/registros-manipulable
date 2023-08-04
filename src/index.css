@@ -232,6 +232,26 @@ tbody tr td {
   background-color: rgba(255, 0, 0, 0.747);
 }
 
+.btn-export {
+  margin-top: 15px;
+  border: none;
+  width: 100%;
+  border-radius: 10px;
+  background-color: rgb(90, 89, 89);
+  color: #FFFFFF;
+  transition: all .3s ease;
+}
+
+.btn-export:hover {
+  background-color: rgba(77, 76, 76, 0.753);
+}
+
+.a_excel {
+  margin: 10px 0;
+  text-align: center;
+}
+
+
 /* MODAL */
 .open {
   height: 100vh;

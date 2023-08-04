@@ -3,6 +3,8 @@ import InfoFormulario from './InfoFormulario';
 import Datos from './Datos';
 import Filtro from './Filtro';
 import {agregarPersonasPorDefecto} from '../data/registros-defecto'
+import * as XLSX from 'xlsx';
+import { Bar } from 'react-chartjs-2';
 
 function Formulario({personas, setPersonas, modal, setModal}) {
       
@@ -70,6 +72,60 @@ function Formulario({personas, setPersonas, modal, setModal}) {
             localStorage.setItem('personasPorDefecto', JSON.stringify(deleteTodo));
             setPersonas([])
         }
+      };
+
+      const [datosExportados, setDatosExportados] = useState(null);
+
+      // Función para exportar los datos en Excel
+      const exportarDatosEnExcel = () => {
+        // Convertir los datos de las personas en un formato que pueda ser utilizado por xlsx
+        const datosParaExcel = prepararDatosParaExcel(personas);
+        // Crear una hoja de trabajo
+        const workBook = XLSX.utils.book_new();
+        // Agregar la hoja de datos al libro de trabajo
+        XLSX.utils.book_append_sheet(workBook, datosParaExcel, 'Datos de Personas');
+        // Crear un archivo binario de Excel
+        const excelBuffer = XLSX.write(workBook, { type: 'array', bookType: 'xlsx' });
+        // Crear un Blob a partir del archivo binario
+        const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        // Crear un URL a partir del Blob
+        const excelURL = URL.createObjectURL(blob);
+        // Establecer los datos a exportar
+        setDatosExportados(excelURL);
+      };
+    
+      // Función para preparar los datos para Excel
+      const prepararDatosParaExcel = (personas) => {
+        // Implementa aquí la lógica para preparar los datos para Excel
+        // Por ejemplo, podrías crear una matriz de registros con todas las propiedades de cada persona
+        const registros = personas.map((persona) => [
+          persona.id,
+          persona.nombre,
+          persona.fecha,
+          persona.genero,
+          persona.nacionalidad,
+          persona.direccion,
+          persona.ciudad,
+          persona.estado,
+          persona.codigo,
+          persona.sangre,
+          persona.alergias,
+          persona.enfermedades,
+          persona.nivel,
+          persona.institucion,
+          persona.anio,
+          persona.habilidad,
+          persona.linguistica,
+          persona.social
+        ]);
+    
+        // Crea una hoja de trabajo para Excel
+        const workSheet = XLSX.utils.aoa_to_sheet([
+          ['ID', 'Nombre', 'Fecha de Nacimiento', 'Género', 'Nacionalidad', 'Dirección', 'Ciudad', 'Estado', 'Código', 'Sangre', 'Alergías', 'Enfermedades', 'Nivel', 'Institución', 'Año', 'Habilidades', 'Hablidades Linguisticas', 'Habilidades Sociales'],
+          ...registros,
+        ]);
+    
+        return workSheet;
       };
       
 
@@ -153,6 +209,17 @@ function Formulario({personas, setPersonas, modal, setModal}) {
                     ))
                 )}
             </div>
+            {/* Agregar el botón para exportar a Excel */}
+          <button className='btn-export' type="button" onClick={exportarDatosEnExcel} disabled={personas.length === 0}>
+            Exportar Registros a Excel
+          </button>
+
+          {/* Agregar el elemento para descargar el archivo */}
+          {datosExportados && (
+            <a href={datosExportados} download="datos_personas.xlsx" className='a_excel'>
+              Descargar archivo de Excel
+            </a>
+          )}
         </div>
     </div>
   )

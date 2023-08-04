@@ -34,8 +34,8 @@ function Datos({
             const personasPorDefectoActualizadas = personasActualizadas.filter((persona) => persona.esPorDefecto);
             localStorage.setItem('personasPorDefecto', JSON.stringify(personasPorDefectoActualizadas));
         }
-  
     }
+
 
   return (
     <div className='container__datos-persona'>
@@ -140,7 +140,8 @@ function Datos({
             </tbody>
         </table>
 
-        <button type="button" className="delete__registro" onClick={borrarRegistro}>Eliminar</button>                 
+        <button type="button" className="delete__registro" onClick={borrarRegistro}>Eliminar</button> 
+    
     </div>
   )
 }
